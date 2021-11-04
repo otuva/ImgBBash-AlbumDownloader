@@ -1,6 +1,6 @@
 ALBUM_ID=$1
 
-get_album_items_with_curl() {
+get_album_info() {
 	USER_AGENT='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:94.0) Gecko/20100101 Firefox/94.0'
 	ACCEPT='application/json, text/javascript, */*'
 	ACCEPT_LANGUAGE='en-US,en;q=0.5'
@@ -15,7 +15,7 @@ get_album_items_with_curl() {
 
 download_album() {
 	echo "Getting album info"
-	jsonResponse=$(get_album_items_with_curl)
+	jsonResponse=$(get_album_info)
 	# jsonResponse=$(cat 'myfile.txt')
 
 	numberOfAlbumItems=$(echo "$jsonResponse" | jq -r ".album.image_count")
