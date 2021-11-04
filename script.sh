@@ -9,14 +9,12 @@ get_album_info() {
 	ORIGIN='https://ibb.co'
 	dataRawACTION="get-album-contents&albumid=${ALBUM_ID}"
 
-
 	curl 'https://ibb.co/json' --silent -X POST -H "User-Agent: ${USER_AGENT}" -H "Accept: ${ACCEPT}" -H "Accept-Language: ${ACCEPT_LANGUAGE}" --compressed -H "Content-Type: ${CONTENT_TYPE}" -H "X-Requested-With: ${X_REQUESTED_WITH}" -H "Origin: ${ORIGIN}" --data-raw "action=${dataRawACTION}"
 }
 
 download_album() {
 	echo "Getting album info"
 	jsonResponse=$(get_album_info)
-	# jsonResponse=$(cat 'myfile.txt')
 
 	numberOfAlbumItems=$(echo "$jsonResponse" | jq -r ".album.image_count")
 
