@@ -13,7 +13,7 @@ get_album_items_with_curl() {
 	curl 'https://ibb.co/json' --silent -X POST -H "User-Agent: ${USER_AGENT}" -H "Accept: ${ACCEPT}" -H "Accept-Language: ${ACCEPT_LANGUAGE}" --compressed -H "Content-Type: ${CONTENT_TYPE}" -H "X-Requested-With: ${X_REQUESTED_WITH}" -H "Origin: ${ORIGIN}" --data-raw "action=${dataRawACTION}"
 }
 
-main() {
+download_album() {
 	echo "Getting album info"
 	jsonResponse=$(get_album_items_with_curl)
 	# jsonResponse=$(cat 'myfile.txt')
@@ -71,7 +71,7 @@ else
 	fi
 
 	if $ANSWER; then
-	    (cd ${directory_name}; main)
+	    (cd ${directory_name}; download_album)
 	else
 	    echo "not running"
 	fi
