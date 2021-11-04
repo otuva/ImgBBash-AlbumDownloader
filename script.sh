@@ -72,9 +72,8 @@ else
 
 	if $ANSWER; then
 	    (cd ${directory_name}; main)
-	    exit 0
 	else
 	    echo "not running"
-	    exit 1
 	fi
+	exit 0
 fi
