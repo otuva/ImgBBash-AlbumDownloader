@@ -36,42 +36,46 @@ download_album() {
 	echo "Ok. Downloaded album '${ALBUM_ID}'"
 }
 
-USAGE="\n\tbash script.sh <album_id>\n"
-if [[ -z ${ALBUM_ID} ]]; then
-	echo "Album ID can't be empty."
-	echo -e ${USAGE}
-	exit 1
+main() {
+	USAGE="\n\tbash script.sh <album_id>\n"
+	if [[ -z ${ALBUM_ID} ]]; then
+		echo "Album ID can't be empty."
+		echo -e ${USAGE}
+		exit 1
 
-elif ! command -v curl &> /dev/null; then
-	echo 'I require "curl". Please install'
-	exit 1
+	elif ! command -v curl &> /dev/null; then
+		echo 'I require "curl". Please install'
+		exit 1
 
-elif ! command -v jq &> /dev/null; then
-	echo 'I require "jq". Please install'
-	exit 1
+	elif ! command -v jq &> /dev/null; then
+		echo 'I require "jq". Please install'
+		exit 1
 
-else
-	ANSWER=true
-	directory_name="ibb.co-${ALBUM_ID}"
-
-	if [[ -d ${directory_name} ]]; then
-		echo "directory ${directory_name} exists."
-		while true; do
-		    read -p "run script anyway? [Y/n]: " yn
-		    case $yn in
-		        [Yy]) break ;;  
-		        [Nn]) ANSWER=false; break ;;
-		        "") break ;;
-		    esac 
-		done
 	else
-		mkdir ${directory_name}
-	fi
+		ANSWER=true
+		directory_name="ibb.co-${ALBUM_ID}"
 
-	if $ANSWER; then
-	    (cd ${directory_name}; download_album)
-	else
-	    echo "not running"
+		if [[ -d ${directory_name} ]]; then
+			echo "directory ${directory_name} exists."
+			while true; do
+			    read -p "run script anyway? [Y/n]: " yn
+			    case $yn in
+			        [Yy]) break ;;  
+			        [Nn]) ANSWER=false; break ;;
+			        "") break ;;
+			    esac 
+			done
+		else
+			mkdir ${directory_name}
+		fi
+
+		if $ANSWER; then
+		    (cd ${directory_name}; download_album)
+		else
+		    echo "not running"
+		fi
+		exit 0
 	fi
-	exit 0
-fi
+}
+
+main
