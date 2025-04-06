@@ -1,5 +1,5 @@
 # ImgBBashAlbumDownloader
-Bash script to download albums from ibb.co
+Bash script to download albums from https://ibb.co
 
 ---
 
